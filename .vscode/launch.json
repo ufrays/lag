@@ -1,15 +1,49 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "cds run --with-mocks --in-memory?",
-      "name": "cds run",
+      "command": "npm run validateConfig",
+      "name": "Run npm validation config",
       "request": "launch",
-      "type": "node-terminal",
-      "skipFiles": [ "<node_internals>/**" ]
+      "type": "node-terminal"
+    },
+    {
+      "type": "node",
+      "name": "jest",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "--runInBand",
+        "--watchAll=false",
+        "--detectOpenHandles"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "envFile": "${workspaceFolder}/.env",
+      "disableOptimisticBPs": true,
+      "outputCapture": "std"
+    },
+    {
+      "name": "cds run",
+      "program": "${workspaceFolder}/node_modules/.bin/cds-ts",
+      "request": "launch",
+      "envFile": "${workspaceFolder}/.env",
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+        "run",
+        "--with-mocks",
+        "--in-memory?"
+      ],
+      "sourceMaps": true,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "pwa-node"
     }
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "charset": "UTF-8",
+    "newLine": "lf",
+    "target": "ES2021",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "lib": [
+      "DOM",
+      "ES2021",
+      "ESNext"
+    ]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "commitlint.config.js"
+  ]
+}
