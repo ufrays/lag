@@ -7,7 +7,7 @@ export class DataGen {
       uuid: v4(),
       name: "dummy-name",
       description: "",
-      historyNames: [],
+      historyNames: "",
       isActive: false,
       leaveDate: new Date(),
       role: "",
@@ -22,16 +22,16 @@ export class DataGen {
       uuid: modelUUID,
       name: "dummy model",
       flag: "dummy",
-      picture: "dummy",
-      rank: lag.entities.ShipRank.T0,
+      picture: Buffer.from(""),
+      shipRank: lag.entities.ShipRank.T0,
       subModels: [
         {
           uuid: v4(),
           parentModelUUID: modelUUID,
           name: "dummy model",
           flag: "dummy",
-          picture: "dummy",
-          rank: lag.entities.ShipRank.T0
+          picture: Buffer.from(""),
+          shipRank: lag.entities.ShipRank.T0
         }
       ]
     };

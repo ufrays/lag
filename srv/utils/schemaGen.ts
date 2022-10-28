@@ -25,7 +25,7 @@ export namespace lag.entities {
     uuid: string;
     name: string;
     description: string;
-    historyNames: string[];
+    historyNames: string;
     isActive: boolean;
     leaveDate: Date;
     ownedShipModels?: IUserOwnedShipModel[];
@@ -63,8 +63,8 @@ export namespace lag.entities {
     uuid: string;
     name: string;
     flag: string;
-    rank: ShipRank;
-    picture: string;
+    shipRank: ShipRank;
+    picture: Buffer;
     subModels: IShipSubModel[];
   }
 
@@ -77,8 +77,8 @@ export namespace lag.entities {
     parentModelUUID: string;
     name: string;
     flag: string;
-    picture: string;
-    rank: ShipRank;
+    picture: Buffer;
+    shipRank: ShipRank;
   }
 
   export enum Entity {

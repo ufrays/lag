@@ -56,7 +56,7 @@ entity ShipModel : managed {
     key uuid      : UUID;
         name      : String;
         flag      : String;
-        rank      : ShipRank;
+        shipRank  : ShipRank;
         picture   : Binary;
         subModels : Composition of many ShipSubModel
                         on subModels.parentModelUUID = $self.uuid;
@@ -68,5 +68,5 @@ entity ShipSubModel : managed {
         name            : String;
         flag            : String;
         picture         : Binary;
-        rank            : ShipRank;
+        shipRank        : ShipRank;
 }

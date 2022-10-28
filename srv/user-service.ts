@@ -1,4 +1,5 @@
 import { ApplicationService } from "@sap/cds";
+import { EEntityName } from "../srv/utils/consts";
 import { DataGen } from "../srv/utils/dataGen";
 
 export class UserService extends ApplicationService {
@@ -14,7 +15,7 @@ export class UserService extends ApplicationService {
       { user: new cds["User"].Privileged() },
       // @ts-ignore
       async () => {
-        // await this.create(EEntityName.USER_ENTITY_NAME).entries(user);
+        await this.create(EEntityName.USER_ENTITY_NAME).entries(user);
       }
     );
   }
