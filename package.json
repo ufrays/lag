@@ -1,9 +1,9 @@
 {
   "name": "lag",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
+  "description": "Lag",
   "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@sap/cds": "^6.2.3",
