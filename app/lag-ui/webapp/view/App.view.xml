@@ -1,14 +1,5 @@
-<mvc:View
-    controllerName="lag.lagui.controller.App"
-    displayBlock="true"
-    xmlns="sap.m"
-    xmlns:mvc="sap.ui.core.mvc">
-
-    <Shell>
-        <App
-            id="app"
-            busy="{appView>/busy}"
-            busyIndicatorDelay="{appView>/delay}"/>
+<mvc:View controllerName="lag.lagui.controller.App" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+    <Shell id="shell">
+        <App id="app" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}" />
     </Shell>
-
 </mvc:View>

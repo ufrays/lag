@@ -16,12 +16,12 @@
       "toolsId": "edb2c115-a62f-4123-8559-d35b450218f8"
     },
     "dataSources": {
-      "mainService": {
+      "userService": {
         "uri": "/user/",
         "type": "OData",
         "settings": {
           "annotations": [],
-          "localUri": "localService/metadata.xml",
+          "localUri": "localService/user-metadata.xml",
           "odataVersion": "4.0"
         }
       }
@@ -70,7 +70,7 @@
         }
       },
       "": {
-        "dataSource": "mainService",
+        "dataSource": "userService",
         "preload": true,
         "settings": {
           "synchronizationMode": "None",
