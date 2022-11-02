@@ -1,2 +1,2 @@
 
-using from './user-management/annotations';
+using from './lag-ui/annotations';
