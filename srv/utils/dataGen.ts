@@ -1,5 +1,6 @@
 import { v4 } from "uuid";
 import { lag } from "./schemaGen";
+import { stringify } from "ts-jest";
 
 export class DataGen {
   public static dummyUserGen(): lag.entities.IUser {
@@ -10,7 +11,7 @@ export class DataGen {
       historyNames: "",
       isActive: false,
       leaveDate: new Date(),
-      role: "",
+      role: "admin",
       password: "test"
     };
     return user;
@@ -28,14 +29,29 @@ export class DataGen {
         {
           uuid: v4(),
           parentModelUUID: modelUUID,
-          name: "dummy model",
+          name: "dummy model1",
           flag: "dummy",
           picture: Buffer.from(""),
-          shipRank: lag.entities.ShipRank.T0
+          shipRank: lag.entities.ShipRank.T2
+        },
+        {
+          uuid: v4(),
+          parentModelUUID: modelUUID,
+          name: "dummy model2",
+          flag: "dummy",
+          picture: Buffer.from(""),
+          shipRank: lag.entities.ShipRank.T3
         }
       ]
     };
     return ShipModel;
+  }
+
+  public static dummyOwnedModelsGen(userUUID: string, modelUUID: string): lag.entities.IUserOwnedShipModel {
+    return {
+      userUUID: userUUID,
+      modelUUID: modelUUID
+    }
   }
 
   public static dummyActivityGen(): lag.entities.IActivity {
@@ -46,5 +62,12 @@ export class DataGen {
       participantRate: 0
     };
     return activity;
+  }
+
+  public static activityAddtendeesGen(userUUID: string, activityUUID: string): lag.entities.IUserParticipantActivity {
+    return {
+      userUUID: userUUID,
+      activityUUID: activityUUID
+    }
   }
 }

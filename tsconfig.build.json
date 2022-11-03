@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./gen",
     "charset": "UTF-8",
     "newLine": "lf",
     "target": "ES2021",

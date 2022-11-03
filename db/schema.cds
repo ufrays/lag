@@ -11,7 +11,8 @@ type ShipRank : String enum {
   T0;
   T1;
   T2;
-  T3
+  T3;
+  NONE;
 }
 
 entity Activity : managed {
@@ -19,6 +20,8 @@ entity Activity : managed {
       datetime        : Date;
       description     : String;
       participantRate : Integer;
+      attendedUsers   : Association to many UserParticipantActivity
+                          on attendedUsers.activityUUID = $self.uuid;
 }
 
 
@@ -47,9 +50,12 @@ entity UserParticipantActivity : managed {
 }
 
 entity UserOwnedShipModel : managed {
-  key uuid      : UUID;
-      userUUID  : UUID;
-      modelUUID : UUID;
+  key userUUID  : UUID;
+  key modelUUID : UUID;
+      toUser    : Association to User
+                    on toUser.uuid = $self.userUUID;
+      toModel   : Association to ShipModel
+                    on toModel.uuid = $self.modelUUID;
 }
 
 entity ShipModel : managed {

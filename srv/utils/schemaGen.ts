@@ -4,6 +4,7 @@ export namespace lag.entities {
     T1,
     T2,
     T3,
+    NONE,
   }
 
   export interface IActivity {
@@ -15,6 +16,7 @@ export namespace lag.entities {
     datetime: Date;
     description: string;
     participantRate: number;
+    attendedUsers?: IUserParticipantActivity[];
   }
 
   export interface IUser {
@@ -50,9 +52,10 @@ export namespace lag.entities {
     createdBy?: string;
     modifiedAt?: Date;
     modifiedBy?: string;
-    uuid: string;
     userUUID: string;
     modelUUID: string;
+    toUser?: IUser;
+    toModel?: IShipModel;
   }
 
   export interface IShipModel {
