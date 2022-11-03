@@ -46,7 +46,8 @@
     "watch-ship-management": "cds watch --open ship-management/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-user-ui": "cds watch --open user-ui/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-lag-ui": "cds watch --open lag-ui/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-lag-ui": "cds watch --open lag-ui/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-lagui": "cds watch --open lagui/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -120,6 +121,7 @@
     "app/user-management",
     "app/project1",
     "app/project1",
-    "app/lag-ui"
+    "app/lag-ui",
+    "app/lagui"
   ]
 }
