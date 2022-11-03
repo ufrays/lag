@@ -1,15 +1,12 @@
 import { ApplicationService } from "@sap/cds";
 import { EEntityName } from "./utils/consts";
 import { DataGen } from "./utils/dataGen";
-import e from "express";
 
 export class LagService extends ApplicationService {
   async init() {
-
     await super.init();
-
     this.on("getDummyData", this.dataGen);
-    await this.dataGen(null);
+    // await this.dataGen(null);
   }
 
   private async dataGen(req: any): Promise<string> {

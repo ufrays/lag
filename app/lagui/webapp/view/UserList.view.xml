@@ -1,0 +1,48 @@
+<mvc:View
+    controllerName="lag.lagui.controller.UserList"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+    <!-- use this to make the table occupy the available screen height -->
+    <VBox fitContainer="true">
+        <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="UserEntity" persistencyKey="uuid">
+            <smartFilterBar:layoutData>
+                <FlexItemData shrinkFactor="0" />
+            </smartFilterBar:layoutData>
+        </smartFilterBar:SmartFilterBar>
+
+        <smartTable:SmartTable id="LineItemsSmartTable" entitySet="UserEntity" smartFilterId="smartFilterBar" tableType="Table" useTablePersonalisation="true">
+            <Table>
+                <columns>
+                    <Column id="Kunnr" hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "uuid",  "columnIndex": 1, "leadingProperty": "uuid", "sortProperty": "uuid"}' />
+                        </customData>
+                        <Text text="uuid" />
+                    </Column>
+                    <Column id="Dmbtr" hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "name",  "columnIndex": 2, "leadingProperty": "name", "sortProperty": "name"}' />
+                        </customData>
+                        <Text text="name" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{uuid}" />
+                        </cells>
+                        <cells>
+                            <Text text="{name}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </smartTable:SmartTable>
+    </VBox>
+</mvc:View>

@@ -15,14 +15,15 @@
       "version": "1.8.0",
       "toolsId": "b938dce9-c795-4115-8e7f-38937fd4a7cf"
     },
+ 
     "dataSources": {
       "mainService": {
-        "uri": "/lag/",
+        "uri": "/v2/lag/",
         "type": "OData",
         "settings": {
           "annotations": [],
           "localUri": "localService/metadata.xml",
-          "odataVersion": "4.0"
+          "odataVersion": "2.0"
         }
       }
     }
@@ -95,23 +96,31 @@
             "notFound"
           ]
         },
-        "async": true
+        "async": true,
+        "path": "lag.lagui.view"
       },
       "routes": [
         {
           "pattern": "",
           "name": "worklist",
-          "target": [
-            "worklist"
-          ]
+          "target": "worklist"
         },
         {
           "pattern": "UserEntity/{objectId}",
           "name": "object",
-          "target": [
-            "object"
-          ]
+          "target": "object"
+        },
+        {
+          "pattern": "userList",
+          "name": "userList",
+          "target": "userList"
+        },
+        {
+          "pattern": "notfound",
+          "name": "objectNotFound",
+          "target": "objectNotFound"
         }
+
       ],
       "targets": {
         "worklist": {
@@ -129,6 +138,12 @@
         "objectNotFound": {
           "viewName": "ObjectNotFound",
           "viewId": "objectNotFound"
+        },
+        "userList": {
+          "viewName": "UserList",
+          "viewId": "userList",
+          "viewLevel": 1,
+          "title": "User List"
         },
         "notFound": {
           "viewName": "NotFound",

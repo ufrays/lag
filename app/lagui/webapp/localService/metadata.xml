@@ -1,286 +1,357 @@
-<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
-    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
-        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" />
     </edmx:Reference>
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
-        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1" />
     </edmx:Reference>
-    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
-        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
     </edmx:Reference>
-    <edmx:DataServices>
-        <Schema Namespace="LagService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-            <EntityContainer Name="EntityContainer">
-                <EntitySet Name="UserEntity" EntityType="LagService.UserEntity">
-                    <NavigationPropertyBinding Path="ownedShipModels" Target="UserOwnedShipModelEntity"/>
-                    <NavigationPropertyBinding Path="participantActivies" Target="UserParticipantActivityEntity"/>
-                </EntitySet>
-                <EntitySet Name="UserOwnedShipModelEntity" EntityType="LagService.UserOwnedShipModelEntity">
-                    <NavigationPropertyBinding Path="toUser" Target="UserEntity"/>
-                    <NavigationPropertyBinding Path="toModel" Target="ShipModelEntity"/>
-                </EntitySet>
-                <EntitySet Name="UserParticipantActivityEntity" EntityType="LagService.UserParticipantActivityEntity">
-                    <NavigationPropertyBinding Path="toUser" Target="UserEntity"/>
-                    <NavigationPropertyBinding Path="toActivity" Target="ActivityEntity"/>
-                </EntitySet>
-                <EntitySet Name="ActivityEntity" EntityType="LagService.ActivityEntity">
-                    <NavigationPropertyBinding Path="attendedUsers" Target="UserParticipantActivityEntity"/>
-                </EntitySet>
-                <EntitySet Name="ShipModelEntity" EntityType="LagService.ShipModelEntity">
-                    <NavigationPropertyBinding Path="subModels" Target="ShipSubModelEntity"/>
-                </EntitySet>
-                <EntitySet Name="ShipSubModelEntity" EntityType="LagService.ShipSubModelEntity"/>
-                <FunctionImport Name="getDummyData" Function="LagService.getDummyData"/>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="LagService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="UserEntity" EntityType="LagService.UserEntity" />
+                <EntitySet Name="UserOwnedShipModelEntity" EntityType="LagService.UserOwnedShipModelEntity" />
+                <EntitySet Name="UserParticipantActivityEntity" EntityType="LagService.UserParticipantActivityEntity" />
+                <EntitySet Name="ActivityEntity" EntityType="LagService.ActivityEntity" />
+                <EntitySet Name="ShipModelEntity" EntityType="LagService.ShipModelEntity" />
+                <EntitySet Name="ShipSubModelEntity" EntityType="LagService.ShipSubModelEntity" />
+                <FunctionImport Name="getDummyData" ReturnType="Edm.String" m:HttpMethod="GET" />
+                <AssociationSet Name="UserEntity_ownedShipModels" Association="LagService.UserEntity_ownedShipModels">
+                    <End Role="UserEntity" EntitySet="UserEntity" />
+                    <End Role="UserOwnedShipModelEntity" EntitySet="UserOwnedShipModelEntity" />
+                </AssociationSet>
+                <AssociationSet Name="UserEntity_participantActivies" Association="LagService.UserEntity_participantActivies">
+                    <End Role="UserEntity" EntitySet="UserEntity" />
+                    <End Role="UserParticipantActivityEntity" EntitySet="UserParticipantActivityEntity" />
+                </AssociationSet>
+                <AssociationSet Name="UserOwnedShipModelEntity_toUser" Association="LagService.UserOwnedShipModelEntity_toUser">
+                    <End Role="UserOwnedShipModelEntity" EntitySet="UserOwnedShipModelEntity" />
+                    <End Role="UserEntity" EntitySet="UserEntity" />
+                </AssociationSet>
+                <AssociationSet Name="UserOwnedShipModelEntity_toModel" Association="LagService.UserOwnedShipModelEntity_toModel">
+                    <End Role="UserOwnedShipModelEntity" EntitySet="UserOwnedShipModelEntity" />
+                    <End Role="ShipModelEntity" EntitySet="ShipModelEntity" />
+                </AssociationSet>
+                <AssociationSet Name="UserParticipantActivityEntity_toUser" Association="LagService.UserParticipantActivityEntity_toUser">
+                    <End Role="UserParticipantActivityEntity" EntitySet="UserParticipantActivityEntity" />
+                    <End Role="UserEntity" EntitySet="UserEntity" />
+                </AssociationSet>
+                <AssociationSet Name="UserParticipantActivityEntity_toActivity" Association="LagService.UserParticipantActivityEntity_toActivity">
+                    <End Role="UserParticipantActivityEntity" EntitySet="UserParticipantActivityEntity" />
+                    <End Role="ActivityEntity" EntitySet="ActivityEntity" />
+                </AssociationSet>
+                <AssociationSet Name="ActivityEntity_attendedUsers" Association="LagService.ActivityEntity_attendedUsers">
+                    <End Role="ActivityEntity" EntitySet="ActivityEntity" />
+                    <End Role="UserParticipantActivityEntity" EntitySet="UserParticipantActivityEntity" />
+                </AssociationSet>
+                <AssociationSet Name="ShipModelEntity_subModels" Association="LagService.ShipModelEntity_subModels">
+                    <End Role="ShipModelEntity" EntitySet="ShipModelEntity" />
+                    <End Role="ShipSubModelEntity" EntitySet="ShipSubModelEntity" />
+                </AssociationSet>
             </EntityContainer>
             <EntityType Name="UserEntity">
                 <Key>
-                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="uuid" />
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="uuid" Type="Edm.Guid" Nullable="false"/>
-                <Property Name="name" Type="Edm.String"/>
-                <Property Name="description" Type="Edm.String"/>
-                <Property Name="historyNames" Type="Edm.String"/>
-                <Property Name="isActive" Type="Edm.Boolean"/>
-                <Property Name="leaveDate" Type="Edm.Date"/>
-                <NavigationProperty Name="ownedShipModels" Type="Collection(LagService.UserOwnedShipModelEntity)"/>
-                <NavigationProperty Name="participantActivies" Type="Collection(LagService.UserParticipantActivityEntity)"/>
-                <Property Name="role" Type="Edm.String"/>
-                <Property Name="password" Type="Edm.String"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" />
+                <Property Name="description" Type="Edm.String" />
+                <Property Name="historyNames" Type="Edm.String" />
+                <Property Name="isActive" Type="Edm.Boolean" />
+                <Property Name="leaveDate" Type="Edm.DateTime" sap:display-format="Date" />
+                <NavigationProperty Name="ownedShipModels" Relationship="LagService.UserEntity_ownedShipModels" FromRole="UserEntity" ToRole="UserOwnedShipModelEntity" />
+                <NavigationProperty Name="participantActivies" Relationship="LagService.UserEntity_participantActivies" FromRole="UserEntity" ToRole="UserParticipantActivityEntity" />
+                <Property Name="role" Type="Edm.String" />
+                <Property Name="password" Type="Edm.String" />
             </EntityType>
             <EntityType Name="UserOwnedShipModelEntity">
                 <Key>
-                    <PropertyRef Name="userUUID"/>
-                    <PropertyRef Name="modelUUID"/>
+                    <PropertyRef Name="userUUID" />
+                    <PropertyRef Name="modelUUID" />
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="userUUID" Type="Edm.Guid" Nullable="false"/>
-                <Property Name="modelUUID" Type="Edm.Guid" Nullable="false"/>
-                <NavigationProperty Name="toUser" Type="LagService.UserEntity">
-                    <ReferentialConstraint Property="userUUID" ReferencedProperty="uuid"/>
-                </NavigationProperty>
-                <NavigationProperty Name="toModel" Type="LagService.ShipModelEntity">
-                    <ReferentialConstraint Property="modelUUID" ReferencedProperty="uuid"/>
-                </NavigationProperty>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="userUUID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="modelUUID" Type="Edm.Guid" Nullable="false" />
+                <NavigationProperty Name="toUser" Relationship="LagService.UserOwnedShipModelEntity_toUser" FromRole="UserOwnedShipModelEntity" ToRole="UserEntity" />
+                <NavigationProperty Name="toModel" Relationship="LagService.UserOwnedShipModelEntity_toModel" FromRole="UserOwnedShipModelEntity" ToRole="ShipModelEntity" />
             </EntityType>
             <EntityType Name="UserParticipantActivityEntity">
                 <Key>
-                    <PropertyRef Name="userUUID"/>
-                    <PropertyRef Name="activityUUID"/>
+                    <PropertyRef Name="userUUID" />
+                    <PropertyRef Name="activityUUID" />
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="userUUID" Type="Edm.Guid" Nullable="false"/>
-                <Property Name="activityUUID" Type="Edm.Guid" Nullable="false"/>
-                <NavigationProperty Name="toUser" Type="LagService.UserEntity">
-                    <ReferentialConstraint Property="userUUID" ReferencedProperty="uuid"/>
-                </NavigationProperty>
-                <NavigationProperty Name="toActivity" Type="LagService.ActivityEntity">
-                    <ReferentialConstraint Property="activityUUID" ReferencedProperty="uuid"/>
-                </NavigationProperty>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="userUUID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="activityUUID" Type="Edm.Guid" Nullable="false" />
+                <NavigationProperty Name="toUser" Relationship="LagService.UserParticipantActivityEntity_toUser" FromRole="UserParticipantActivityEntity" ToRole="UserEntity" />
+                <NavigationProperty Name="toActivity" Relationship="LagService.UserParticipantActivityEntity_toActivity" FromRole="UserParticipantActivityEntity" ToRole="ActivityEntity" />
             </EntityType>
             <EntityType Name="ActivityEntity">
                 <Key>
-                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="uuid" />
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="uuid" Type="Edm.Guid" Nullable="false"/>
-                <Property Name="datetime" Type="Edm.Date"/>
-                <Property Name="description" Type="Edm.String"/>
-                <Property Name="participantRate" Type="Edm.Int32"/>
-                <NavigationProperty Name="attendedUsers" Type="Collection(LagService.UserParticipantActivityEntity)"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="datetime" Type="Edm.DateTime" sap:display-format="Date" />
+                <Property Name="description" Type="Edm.String" />
+                <Property Name="participantRate" Type="Edm.Int32" />
+                <NavigationProperty Name="attendedUsers" Relationship="LagService.ActivityEntity_attendedUsers" FromRole="ActivityEntity" ToRole="UserParticipantActivityEntity" />
             </EntityType>
             <EntityType Name="ShipModelEntity">
                 <Key>
-                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="uuid" />
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="uuid" Type="Edm.Guid" Nullable="false"/>
-                <Property Name="name" Type="Edm.String"/>
-                <Property Name="flag" Type="Edm.String"/>
-                <Property Name="shipRank" Type="Edm.String"/>
-                <Property Name="picture" Type="Edm.Binary"/>
-                <NavigationProperty Name="subModels" Type="Collection(LagService.ShipSubModelEntity)">
-                    <OnDelete Action="Cascade"/>
-                </NavigationProperty>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" />
+                <Property Name="flag" Type="Edm.String" />
+                <Property Name="shipRank" Type="Edm.String" />
+                <Property Name="picture" Type="Edm.Binary" />
+                <NavigationProperty Name="subModels" Relationship="LagService.ShipModelEntity_subModels" FromRole="ShipModelEntity" ToRole="ShipSubModelEntity" />
             </EntityType>
             <EntityType Name="ShipSubModelEntity">
                 <Key>
-                    <PropertyRef Name="uuid"/>
+                    <PropertyRef Name="uuid" />
                 </Key>
-                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="uuid" Type="Edm.Guid" Nullable="false"/>
-                <Property Name="parentModelUUID" Type="Edm.Guid"/>
-                <Property Name="name" Type="Edm.String"/>
-                <Property Name="flag" Type="Edm.String"/>
-                <Property Name="picture" Type="Edm.Binary"/>
-                <Property Name="shipRank" Type="Edm.String"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="uuid" Type="Edm.Guid" Nullable="false" />
+                <Property Name="parentModelUUID" Type="Edm.Guid" />
+                <Property Name="name" Type="Edm.String" />
+                <Property Name="flag" Type="Edm.String" />
+                <Property Name="picture" Type="Edm.Binary" />
+                <Property Name="shipRank" Type="Edm.String" />
             </EntityType>
-            <Function Name="getDummyData" IsBound="false" IsComposable="false">
-                <ReturnType Type="Edm.String"/>
-            </Function>
-            <Annotations Target="LagService.UserEntity/createdAt">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
-                </Annotations>
-                <Annotations Target="LagService.UserEntity/createdBy">
-                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                    <Annotation Term="Core.Immutable" Bool="true"/>
-                    <Annotation Term="Core.Computed" Bool="true"/>
-                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
-                        </Annotations>
-                        <Annotations Target="LagService.UserEntity/modifiedAt">
-                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                            <Annotation Term="Core.Computed" Bool="true"/>
-                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
-                            </Annotations>
-                            <Annotations Target="LagService.UserEntity/modifiedBy">
-                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                <Annotation Term="Core.Computed" Bool="true"/>
-                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
-                                    </Annotations>
-                                    <Annotations Target="LagService.UserOwnedShipModelEntity/createdAt">
-                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                        <Annotation Term="Core.Immutable" Bool="true"/>
-                                        <Annotation Term="Core.Computed" Bool="true"/>
-                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
-                                        </Annotations>
-                                        <Annotations Target="LagService.UserOwnedShipModelEntity/createdBy">
-                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                            <Annotation Term="Core.Immutable" Bool="true"/>
-                                            <Annotation Term="Core.Computed" Bool="true"/>
-                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
-                                                </Annotations>
-                                                <Annotations Target="LagService.UserOwnedShipModelEntity/modifiedAt">
-                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                    <Annotation Term="Core.Computed" Bool="true"/>
-                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
-                                                    </Annotations>
-                                                    <Annotations Target="LagService.UserOwnedShipModelEntity/modifiedBy">
-                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                        <Annotation Term="Core.Computed" Bool="true"/>
-                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
-                                                            </Annotations>
-                                                            <Annotations Target="LagService.UserParticipantActivityEntity/createdAt">
-                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                <Annotation Term="Core.Computed" Bool="true"/>
-                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
-                                                                </Annotations>
-                                                                <Annotations Target="LagService.UserParticipantActivityEntity/createdBy">
-                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                    <Annotation Term="Core.Computed" Bool="true"/>
-                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
-                                                                        </Annotations>
-                                                                        <Annotations Target="LagService.UserParticipantActivityEntity/modifiedAt">
-                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                            <Annotation Term="Core.Computed" Bool="true"/>
-                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
-                                                                            </Annotations>
-                                                                            <Annotations Target="LagService.UserParticipantActivityEntity/modifiedBy">
-                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
-                                                                                    </Annotations>
-                                                                                    <Annotations Target="LagService.ActivityEntity/createdAt">
-                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
-                                                                                        </Annotations>
-                                                                                        <Annotations Target="LagService.ActivityEntity/createdBy">
-                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
-                                                                                                </Annotations>
-                                                                                                <Annotations Target="LagService.ActivityEntity/modifiedAt">
-                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
-                                                                                                    </Annotations>
-                                                                                                    <Annotations Target="LagService.ActivityEntity/modifiedBy">
-                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
-                                                                                                            </Annotations>
-                                                                                                            <Annotations Target="LagService.ShipModelEntity/createdAt">
-                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
-                                                                                                                </Annotations>
-                                                                                                                <Annotations Target="LagService.ShipModelEntity/createdBy">
-                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
-                                                                                                                        </Annotations>
-                                                                                                                        <Annotations Target="LagService.ShipModelEntity/modifiedAt">
-                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
-                                                                                                                            </Annotations>
-                                                                                                                            <Annotations Target="LagService.ShipModelEntity/modifiedBy">
-                                                                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                                <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
-                                                                                                                                    </Annotations>
-                                                                                                                                    <Annotations Target="LagService.ShipSubModelEntity/createdAt">
-                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                                        <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
-                                                                                                                                        </Annotations>
-                                                                                                                                        <Annotations Target="LagService.ShipSubModelEntity/createdBy">
-                                                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                                            <Annotation Term="Core.Immutable" Bool="true"/>
-                                                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
-                                                                                                                                                </Annotations>
-                                                                                                                                                <Annotations Target="LagService.ShipSubModelEntity/modifiedAt">
-                                                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                                                    <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
-                                                                                                                                                    </Annotations>
-                                                                                                                                                    <Annotations Target="LagService.ShipSubModelEntity/modifiedBy">
-                                                                                                                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                                                                                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
-                                                                                                                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
-                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
-                                                                                                                                                            </Annotations>
-                                                                                                                                                        </Schema>
-                                                                                                                                                    </edmx:DataServices>
-                                                                                                                                                </edmx:Edmx>
+            <Association Name="UserEntity_ownedShipModels">
+                <End Role="UserEntity" Type="LagService.UserEntity" Multiplicity="*" />
+                <End Role="UserOwnedShipModelEntity" Type="LagService.UserOwnedShipModelEntity" Multiplicity="*" />
+            </Association>
+            <Association Name="UserEntity_participantActivies">
+                <End Role="UserEntity" Type="LagService.UserEntity" Multiplicity="*" />
+                <End Role="UserParticipantActivityEntity" Type="LagService.UserParticipantActivityEntity" Multiplicity="*" />
+            </Association>
+            <Association Name="UserOwnedShipModelEntity_toUser">
+                <End Role="UserOwnedShipModelEntity" Type="LagService.UserOwnedShipModelEntity" Multiplicity="*" />
+                <End Role="UserEntity" Type="LagService.UserEntity" Multiplicity="0..1" />
+                <ReferentialConstraint>
+                    <Principal Role="UserEntity">
+                        <PropertyRef Name="uuid" />
+                    </Principal>
+                    <Dependent Role="UserOwnedShipModelEntity">
+                        <PropertyRef Name="userUUID" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="UserOwnedShipModelEntity_toModel">
+                <End Role="UserOwnedShipModelEntity" Type="LagService.UserOwnedShipModelEntity" Multiplicity="*" />
+                <End Role="ShipModelEntity" Type="LagService.ShipModelEntity" Multiplicity="0..1" />
+                <ReferentialConstraint>
+                    <Principal Role="ShipModelEntity">
+                        <PropertyRef Name="uuid" />
+                    </Principal>
+                    <Dependent Role="UserOwnedShipModelEntity">
+                        <PropertyRef Name="modelUUID" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="UserParticipantActivityEntity_toUser">
+                <End Role="UserParticipantActivityEntity" Type="LagService.UserParticipantActivityEntity" Multiplicity="*" />
+                <End Role="UserEntity" Type="LagService.UserEntity" Multiplicity="0..1" />
+                <ReferentialConstraint>
+                    <Principal Role="UserEntity">
+                        <PropertyRef Name="uuid" />
+                    </Principal>
+                    <Dependent Role="UserParticipantActivityEntity">
+                        <PropertyRef Name="userUUID" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="UserParticipantActivityEntity_toActivity">
+                <End Role="UserParticipantActivityEntity" Type="LagService.UserParticipantActivityEntity" Multiplicity="*" />
+                <End Role="ActivityEntity" Type="LagService.ActivityEntity" Multiplicity="0..1" />
+                <ReferentialConstraint>
+                    <Principal Role="ActivityEntity">
+                        <PropertyRef Name="uuid" />
+                    </Principal>
+                    <Dependent Role="UserParticipantActivityEntity">
+                        <PropertyRef Name="activityUUID" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ActivityEntity_attendedUsers">
+                <End Role="ActivityEntity" Type="LagService.ActivityEntity" Multiplicity="*" />
+                <End Role="UserParticipantActivityEntity" Type="LagService.UserParticipantActivityEntity" Multiplicity="*" />
+            </Association>
+            <Association Name="ShipModelEntity_subModels">
+                <End Role="ShipModelEntity" Type="LagService.ShipModelEntity" Multiplicity="1">
+                    <OnDelete Action="Cascade" />
+                </End>
+                <End Role="ShipSubModelEntity" Type="LagService.ShipSubModelEntity" Multiplicity="*" />
+            </Association>
+            <Annotations Target="LagService.UserEntity/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Created On" />
+            </Annotations>
+            <Annotations Target="LagService.UserEntity/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Created By" />
+            </Annotations>
+            <Annotations Target="LagService.UserEntity/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Changed On" />
+            </Annotations>
+            <Annotations Target="LagService.UserEntity/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Changed By" />
+            </Annotations>
+            <Annotations Target="LagService.UserOwnedShipModelEntity/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Created On" />
+            </Annotations>
+            <Annotations Target="LagService.UserOwnedShipModelEntity/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Created By" />
+            </Annotations>
+            <Annotations Target="LagService.UserOwnedShipModelEntity/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Changed On" />
+            </Annotations>
+            <Annotations Target="LagService.UserOwnedShipModelEntity/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Changed By" />
+            </Annotations>
+            <Annotations Target="LagService.UserParticipantActivityEntity/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Created On" />
+            </Annotations>
+            <Annotations Target="LagService.UserParticipantActivityEntity/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Created By" />
+            </Annotations>
+            <Annotations Target="LagService.UserParticipantActivityEntity/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Changed On" />
+            </Annotations>
+            <Annotations Target="LagService.UserParticipantActivityEntity/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Changed By" />
+            </Annotations>
+            <Annotations Target="LagService.ActivityEntity/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Created On" />
+            </Annotations>
+            <Annotations Target="LagService.ActivityEntity/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Created By" />
+            </Annotations>
+            <Annotations Target="LagService.ActivityEntity/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Changed On" />
+            </Annotations>
+            <Annotations Target="LagService.ActivityEntity/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Changed By" />
+            </Annotations>
+            <Annotations Target="LagService.ShipModelEntity/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Created On" />
+            </Annotations>
+            <Annotations Target="LagService.ShipModelEntity/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Created By" />
+            </Annotations>
+            <Annotations Target="LagService.ShipModelEntity/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Changed On" />
+            </Annotations>
+            <Annotations Target="LagService.ShipModelEntity/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Changed By" />
+            </Annotations>
+            <Annotations Target="LagService.ShipSubModelEntity/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Created On" />
+            </Annotations>
+            <Annotations Target="LagService.ShipSubModelEntity/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Created By" />
+            </Annotations>
+            <Annotations Target="LagService.ShipSubModelEntity/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Changed On" />
+            </Annotations>
+            <Annotations Target="LagService.ShipSubModelEntity/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="User's unique ID" />
+                <Annotation Term="Common.Label" String="Changed By" />
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
