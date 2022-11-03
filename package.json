@@ -35,7 +35,8 @@
     "typescript": "^4.8.3"
   },
   "scripts": {
-    "start": "cds run",
+    "start": "CDS_ENV=development cds run",
+    "start:p": "CDS_ENV=production cds run",
     "build": "cds build && npm run defGen",
     "build:ts": "tsc -p tsconfig.build.json",
     "defGen": "cds2types --cds ./db ./srv -o ./srv/utils/schemaGen.ts --prefix I -f",
@@ -74,25 +75,35 @@
   },
   "cds": {
     "requires": {
-      "db": {
-        "kind": "mysql",
-        "tenant": {
-          "deploy": {
-            "eager": [
-              "default"
-            ]
+      "[development]": {
+        "db": {
+          "kind": "sql",
+          "credentials": {
+            "database": "lag.db"
           }
-        },
-        "credentials": {
-          "host": "139.196.90.54",
-          "user": "Dev",
-          "password": "Welcome1",
-          "database": "lag",
-          "port": 3306
         }
       },
-      "mysql": {
-        "impl": "cds-mysql"
+      "[production]": {
+        "db": {
+          "kind": "mysql",
+          "tenant": {
+            "deploy": {
+              "eager": [
+                "default"
+              ]
+            }
+          },
+          "credentials": {
+            "host": "139.196.90.54",
+            "user": "Dev",
+            "password": "Welcome1",
+            "database": "lag",
+            "port": 3306
+          }
+        },
+        "mysql": {
+          "impl": "cds-mysql"
+        }
       }
     },
     "hana": {

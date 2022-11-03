@@ -44,6 +44,26 @@
         "<node_internals>/**"
       ],
       "type": "pwa-node"
+    },
+    {
+      "name": "cds run prod",
+      "program": "${workspaceFolder}/node_modules/.bin/cds-ts",
+      "request": "launch",
+      "envFile": "${workspaceFolder}/.env",
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+        "run",
+        "--production"
+      ],
+      "sourceMaps": true,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "pwa-node"
     }
   ]
 }
