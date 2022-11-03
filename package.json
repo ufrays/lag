@@ -37,6 +37,7 @@
   "scripts": {
     "start": "cds run",
     "build": "cds build && npm run defGen",
+    "build:ts": "tsc -p tsconfig.build.json",
     "defGen": "cds2types --cds ./db ./srv -o ./srv/utils/schemaGen.ts --prefix I -f",
     "watch-user-monitoring": "cds watch --open user-monitoring/webapp/index.html#fe-lrop-v4",
     "watch-user-management": "cds watch --open user-management/webapp/index.html?sap-ui-xx-viewCache=false",
