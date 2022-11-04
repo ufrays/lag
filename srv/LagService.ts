@@ -17,6 +17,7 @@ export class LagService extends ApplicationService {
     const userShip = DataGen.dummyOwnedModelsGen(user.uuid, shipModel.uuid);
     try {
       this.tx(
+        // @ts-ignore
         { user: new cds["User"].Privileged() },
         // @ts-ignore
         async () => {
@@ -31,6 +32,7 @@ export class LagService extends ApplicationService {
       return "done";
     } catch (error) {
       console.error(error);
+      return "error"
     }
 
   }

@@ -35,18 +35,11 @@
     "typescript": "^4.8.3"
   },
   "scripts": {
-    "start": "CDS_ENV=development cds run",
-    "start:p": "CDS_ENV=production cds run",
+    "start": "CDS_ENV=development cds-ts run",
+    "start:p": "CDS_ENV=production cds-ts run",
     "build": "cds build && npm run defGen",
     "build:ts": "tsc -p tsconfig.build.json",
     "defGen": "cds2types --cds ./db ./srv -o ./srv/utils/schemaGen.ts --prefix I -f",
-    "watch-user-monitoring": "cds watch --open user-monitoring/webapp/index.html#fe-lrop-v4",
-    "watch-user-management": "cds watch --open user-management/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-activity-managment": "cds watch --open activity-managment/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-ship-management": "cds watch --open ship-management/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-user-ui": "cds watch --open user-ui/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-lag-ui": "cds watch --open lag-ui/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-lagui": "cds watch --open lagui/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "eslintConfig": {
