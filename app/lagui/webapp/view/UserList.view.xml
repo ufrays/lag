@@ -10,39 +10,40 @@
 >
     <!-- use this to make the table occupy the available screen height -->
     <VBox fitContainer="true">
-        <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="UserEntity" persistencyKey="uuid">
+        <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="UserEntity" persistencyKey="SmartFilter_Explored" basicSearchFieldName="name" enableBasicSearch="true">
+            <smartFilterBar:controlConfiguration>
+                <smartFilterBar:ControlConfiguration key="historyName">
+                    <smartFilterBar:defaultFilterValues />
+                </smartFilterBar:ControlConfiguration>
+                <smartFilterBar:ControlConfiguration key="isActive">
+                    <smartFilterBar:defaultFilterValues />
+                </smartFilterBar:ControlConfiguration>
+            </smartFilterBar:controlConfiguration>
+            <!-- layout data used to make the table growing but the filter bar fixed -->
             <smartFilterBar:layoutData>
                 <FlexItemData shrinkFactor="0" />
             </smartFilterBar:layoutData>
         </smartFilterBar:SmartFilterBar>
 
-        <smartTable:SmartTable id="LineItemsSmartTable" entitySet="UserEntity" smartFilterId="smartFilterBar" tableType="Table" useTablePersonalisation="true">
-            <Table>
-                <columns>
-                    <Column id="Kunnr" hAlign="Begin">
-                        <customData>
-                            <core:CustomData key="p13nData" value='\{"columnKey": "uuid",  "columnIndex": 1, "leadingProperty": "uuid", "sortProperty": "uuid"}' />
-                        </customData>
-                        <Text text="uuid" />
-                    </Column>
-                    <Column id="Dmbtr" hAlign="Begin">
-                        <customData>
-                            <core:CustomData key="p13nData" value='\{"columnKey": "name",  "columnIndex": 2, "leadingProperty": "name", "sortProperty": "name"}' />
-                        </customData>
-                        <Text text="name" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <Text text="{uuid}" />
-                        </cells>
-                        <cells>
-                            <Text text="{name}" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
+        <smartTable:SmartTable
+            id="LineItemsSmartTable"
+            entitySet="UserEntity"
+            smartFilterId="smartFilterBar"
+            tableType="ResponsiveTable"
+            useVariantManagement="true"
+            useTablePersonalisation="true"
+            header="Line Items"
+            showRowCount="true"
+            persistencyKey="SmartTableAnalytical_Explored"
+            enableAutoBinding="true"
+            class="sapUiResponsiveContentPadding"
+            enableAutoColumnWidth="true"
+            editTogglable="true"
+            app:useSmartToggle="true"
+        >
+            <smartTable:layoutData>
+                <FlexItemData growFactor="1" baseSize="0%" />
+            </smartTable:layoutData>
         </smartTable:SmartTable>
     </VBox>
 </mvc:View>

@@ -6,10 +6,10 @@ export class DataGen {
   public static dummyUserGen(): lag.entities.IUser {
     const user: lag.entities.IUser = {
       uuid: v4(),
-      name: "dummy-name",
-      description: "",
-      historyNames: "",
-      isActive: false,
+      name: "dummy-name" + v4(),
+      description: "test desc",
+      historyNames: "dummy history name, dummy 2",
+      isActive: true,
       leaveDate: new Date(),
       role: "admin",
       password: "test"

@@ -11,16 +11,7 @@ sap.ui.define([
 
     onInit: async function () {
       const oModel = this.getOwnerComponent().getModel();
-      if (oModel.isMetadataLoadingFailed) {
-        const sOriginMetadataURL = oModel.sMetadataUrl;
-        const thrinkedUrl = sOriginMetadataURL.slice("/v2/lag/$metadata", 17);
-        oModel.sMetadataUrl = thrinkedUrl; await oModel.refreshMetadata();
-      }
-
-      const oView = this.getView();
-      oView.setModel(oModel);
+      this.getView().setModel(oModel);
     }
-
-
   });
 });

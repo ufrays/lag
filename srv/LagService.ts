@@ -5,7 +5,7 @@ import { DataGen } from "./utils/dataGen";
 export class LagService extends ApplicationService {
   async init() {
     await super.init();
-    this.on("getDummyData", this.dataGen);
+    this.on("getDummyData", this.dataGen.bind(this));
     // await this.dataGen(null);
   }
 
@@ -16,7 +16,7 @@ export class LagService extends ApplicationService {
     const userAtt = DataGen.activityAddtendeesGen(user.uuid, activity.uuid);
     const userShip = DataGen.dummyOwnedModelsGen(user.uuid, shipModel.uuid);
     try {
-      this.tx(
+      await this.tx(
         // @ts-ignore
         { user: new cds["User"].Privileged() },
         // @ts-ignore
