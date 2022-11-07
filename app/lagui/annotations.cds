@@ -1,5 +1,10 @@
 using LagService as service from '../../srv/LagService';
 
+annotate service.UserEntity with @(UI.SelectionFields : [
+  name,
+  isActive,
+]);
+
 annotate service.UserEntity with @(UI.LineItem : [
   {
     $Type             : 'UI.DataField',
@@ -27,5 +32,6 @@ annotate service.UserEntity with @(UI.LineItem : [
     Value : leaveDate,
     Label : '退盟时间',
 
-  },
+  }
+
 ]);
