@@ -1,6 +1,5 @@
 import { v4 } from "uuid";
 import { lag } from "./schemaGen";
-import { stringify } from "ts-jest";
 
 export class DataGen {
   public static dummyUserGen(): lag.entities.IUser {
@@ -25,25 +24,27 @@ export class DataGen {
       flag: "dummy",
       picture: Buffer.from(""),
       shipRank: lag.entities.ShipRank.T0,
-      subModels: [
-        {
-          uuid: v4(),
-          parentModelUUID: modelUUID,
-          name: "dummy model1",
-          flag: "dummy",
-          picture: Buffer.from(""),
-          shipRank: lag.entities.ShipRank.T2
-        },
-        {
-          uuid: v4(),
-          parentModelUUID: modelUUID,
-          name: "dummy model2",
-          flag: "dummy",
-          picture: Buffer.from(""),
-          shipRank: lag.entities.ShipRank.T3
-        }
-      ]
+      parentModelUUID : ""
+      
     };
+    const subModels : lag.entities.IShipModel[] = [
+      {
+        uuid: v4(),
+        parentModelUUID: modelUUID,
+        name: "sub model1",
+        flag: "dummy",
+        picture: Buffer.from(""),
+        shipRank: lag.entities.ShipRank.T2,
+      },
+      {
+        uuid: v4(),
+        parentModelUUID: modelUUID,
+        name: "sub model2",
+        flag: "dummy",
+        picture: Buffer.from(""),
+        shipRank: lag.entities.ShipRank.T3
+      }
+    ];
     return ShipModel;
   }
 
@@ -59,7 +60,9 @@ export class DataGen {
       uuid: v4(),
       datetime: new Date(),
       description: "test Activity",
-      participantRate: 0
+      participantRate: 0,
+      availableUsers: 0,
+      activityType : lag.entities.ActivityType.GC
     };
     return activity;
   }
@@ -67,7 +70,8 @@ export class DataGen {
   public static activityAddtendeesGen(userUUID: string, activityUUID: string): lag.entities.IUserParticipantActivity {
     return {
       userUUID: userUUID,
-      activityUUID: activityUUID
+      activityUUID: activityUUID,
+      participantType : lag.entities.ParticipantType.YD
     }
   }
 }

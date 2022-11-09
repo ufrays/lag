@@ -15,13 +15,30 @@ type ShipRank : String enum {
   NONE;
 }
 
+
+type ParticipantType : String enum {
+  WD    = '未到';
+  YD    = '已到';
+  GJ    = '挂机';
+  QJ    = '请假';
+  OTHER = '其他';
+}
+
+type ActivityType : String enum {
+  GC = '攻城';
+  TZ = '团战';
+  QT = '其他';
+}
+
 entity Activity : managed {
-  key uuid            : UUID;
-      datetime        : Date;
-      description     : String;
-      participantRate : Integer;
-      attendedUsers   : Association to many UserParticipantActivity
-                          on attendedUsers.activityUUID = $self.uuid;
+  key uuid                    : UUID;
+      datetime                : Date;
+      description             : String;
+      activityType            : ActivityType;
+      virtual participantRate : Double;
+      attendedUsers           : Association to many UserParticipantActivity
+                                  on attendedUsers.activityUUID = $self.uuid;
+      availableUsers          : Integer;
 }
 
 
@@ -41,12 +58,13 @@ entity User : managed {
 }
 
 entity UserParticipantActivity : managed {
-  key userUUID     : UUID;
-  key activityUUID : UUID;
-      toUser       : Association to User
-                       on toUser.uuid = $self.userUUID;
-      toActivity   : Association to Activity
-                       on toActivity.uuid = $self.activityUUID;
+  key userUUID        : UUID;
+  key activityUUID    : UUID;
+      participantType : ParticipantType;
+      toUser          : Association to User
+                          on toUser.uuid = $self.userUUID;
+      toActivity      : Association to Activity
+                          on toActivity.uuid = $self.activityUUID;
 }
 
 entity UserOwnedShipModel : managed {
@@ -59,20 +77,14 @@ entity UserOwnedShipModel : managed {
 }
 
 entity ShipModel : managed {
-  key uuid      : UUID;
-      name      : String;
-      flag      : String;
-      shipRank  : ShipRank;
-      picture   : Binary;
-      subModels : Composition of many ShipSubModel
-                    on subModels.parentModelUUID = $self.uuid;
-}
-
-entity ShipSubModel : managed {
   key uuid            : UUID;
-      parentModelUUID : UUID;
       name            : String;
       flag            : String;
-      picture         : Binary;
       shipRank        : ShipRank;
+      picture         : Binary;
+      parentModelUUID : UUID;
+      subModels       : Association to many ShipModel
+                          on subModels.parentModelUUID = $self.uuid;
+      toParentModel   : Association to one ShipModel
+                          on toParentModel.uuid = $self.parentModelUUID;
 }

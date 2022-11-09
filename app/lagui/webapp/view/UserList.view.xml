@@ -1,5 +1,4 @@
 <mvc:View
-    controllerName="lag.lagui.controller.UserList"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
@@ -7,6 +6,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    controllerName="lag.lagui.controller.UserList"
 >
     <!-- use this to make the table occupy the available screen height -->
     <VBox fitContainer="true">
@@ -30,20 +30,43 @@
             entitySet="UserEntity"
             smartFilterId="smartFilterBar"
             tableType="ResponsiveTable"
-            useVariantManagement="true"
-            useTablePersonalisation="true"
+            useVariantManagement="false"
+            useTablePersonalisation="false"
             header="Line Items"
+            requestAtLeastFields="uuid"
             showRowCount="true"
             persistencyKey="SmartTableAnalytical_Explored"
             enableAutoBinding="true"
             class="sapUiResponsiveContentPadding"
             enableAutoColumnWidth="true"
-            editTogglable="true"
+            editTogglable="false"
             app:useSmartToggle="true"
+            editable="false"
+            showFullScreenButton="true"
+            showVariantManagement="false"
+            app:w5g.dt.context="/UserEntity"
+            ignoredFields="{password}"
         >
             <smartTable:layoutData>
                 <FlexItemData growFactor="1" baseSize="0%" />
             </smartTable:layoutData>
+            <Table>
+                <columns>
+                    <Column>
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "name", "columnIndex": 0, "leadingProperty": "name" \}' />
+                        </customData>
+                        <Text text="昵称" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" press="onItemPress">
+                        <cells>
+                            <Link text="{name}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
         </smartTable:SmartTable>
     </VBox>
 </mvc:View>

@@ -1,0 +1,75 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:semantic="sap.f.semantic"
+    controllerName="lag.lagui.controller.User"
+>
+    <VBox>
+        <smartForm:SmartForm id="smartFormColumn" app:defaultCheckBoxDisplayBehaviour="OnOff" app:defaultDropDownDisplayBehaviour="idAndDescription" editTogglable="true" title="人员信息 - {name}" app:w5g.dt.context="/UserEntity">
+            <smartForm:layout>
+                <smartForm:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+            </smartForm:layout>
+            <smartForm:Group id="smg_basic" title="基本信息">
+                <smartForm:GroupElement>
+                    <smartField:SmartField textLabel="昵称" value="{name}" importance="High" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement>
+                    <smartField:SmartField textLabel="历史用名" value="{historyNames}" importance="Medium" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement>
+                    <smartField:SmartField textLabel="简介" value="{description}" importance="Medium" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement>
+                    <smartField:SmartField textLabel="在盟" value="{isActive}" />
+                </smartForm:GroupElement>
+                <smartForm:GroupElement>
+                    <smartField:SmartField textLabel="退盟时间" value="{leaveDate}" />
+                </smartForm:GroupElement>
+            </smartForm:Group>
+        </smartForm:SmartForm>
+        <IconTabBar selectedKey="activityFilter" id="bar0">
+            <items>
+                <IconTabFilter id="activityFilter" text="活动" count="{count(activityUUID)}" icon="sap-icon://activity-items" app:w5g.dt.context="/UserParticipantActivityEntity">
+                    <content>
+                        <smartTable:SmartTable
+                            id="ActivityItemsSmartTable"
+                            entitySet="UserParticipantActivityEntity"
+                            tableType="ResponsiveTable"
+                            useVariantManagement="false"
+                            useTablePersonalisation="false"
+                            header="活动信息"
+                            showRowCount="true"
+                            persistencyKey="SmartTableAnalytical_Explored"
+                            enableAutoBinding="true"
+                            class="sapUiResponsiveContentPadding"
+                            enableAutoColumnWidth="true"
+                            editTogglable="false"
+                            app:useSmartToggle="true"
+                            editable="false"
+                            showFullScreenButton="false"
+                            showVariantManagement="false"
+                            enableCustomFilter="false"
+                            showTablePersonalisation="false"
+                            useInfoToolbar="Off"
+                            app:w5g.dt.context="/UserEntity/participantActivies"
+                            beforeRebindTable="onBeforeRebindTable"
+                            backgroundDesign="Solid"
+                        >
+                            <smartTable:layoutData>
+                                <FlexItemData growFactor="1" baseSize="0%" backgroundDesign="Solid" />
+                            </smartTable:layoutData>
+                        </smartTable:SmartTable>
+                    </content>
+                </IconTabFilter>
+
+                <IconTabFilter text="蓝图" count="5" icon="sap-icon://radar-chart" iconColor="Positive" id="blueprints" />
+            </items>
+        </IconTabBar>
+    </VBox>
+</mvc:View>

@@ -7,6 +7,21 @@ export class LagService extends ApplicationService {
     await super.init();
     this.on("getDummyData", this.dataGen.bind(this));
     // await this.dataGen(null);
+    this.before("CREATE", EEntityName.ACTIVITY_ENTITY_NAME, this.countAvaiableUsers.bind(this));
+  }
+
+  private async  countAvaiableUsers (req: Request) {
+
+    try {
+       const activieUserUUIDs:[] =   await this.read(EEntityName.USER_ENTITY_NAME).where({
+        isActive: true
+      }).columns("uuid");
+      req["data"].availableUsers = activieUserUUIDs?.length;
+       const xx = req.body;
+    } catch (error) {
+      console.error(error);
+    }
+    
   }
 
   private async dataGen(req: any): Promise<string> {

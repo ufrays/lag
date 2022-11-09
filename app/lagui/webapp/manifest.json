@@ -15,7 +15,6 @@
       "version": "1.8.0",
       "toolsId": "b938dce9-c795-4115-8e7f-38937fd4a7cf"
     },
- 
     "dataSources": {
       "mainService": {
         "uri": "/v2/lag/",
@@ -106,9 +105,14 @@
           "target": "worklist"
         },
         {
-          "pattern": "UserEntity/{objectId}",
+          "pattern": "Ojbect/{objectId}",
           "name": "object",
           "target": "object"
+        },
+        {
+          "pattern": "userEntity/{uuid}",
+          "name": "user",
+          "target": "user"
         },
         {
           "pattern": "userList",
@@ -120,7 +124,6 @@
           "name": "objectNotFound",
           "target": "objectNotFound"
         }
-
       ],
       "targets": {
         "worklist": {
@@ -134,6 +137,12 @@
           "viewId": "object",
           "viewLevel": 2,
           "title": "{i18n>objectViewTitle}"
+        },
+        "user": {
+          "viewName": "User",
+          "viewId": "user",
+          "viewLevel": 2,
+          "title": "用户"
         },
         "objectNotFound": {
           "viewName": "ObjectNotFound",

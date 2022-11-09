@@ -7,6 +7,20 @@ export namespace lag.entities {
     NONE,
   }
 
+  export enum ParticipantType {
+    WD = "未到",
+    YD = "已到",
+    GJ = "挂机",
+    QJ = "请假",
+    OTHER = "其他",
+  }
+
+  export enum ActivityType {
+    GC = "攻城",
+    TZ = "团战",
+    QT = "其他",
+  }
+
   export interface IActivity {
     createdAt?: Date;
     createdBy?: string;
@@ -15,8 +29,10 @@ export namespace lag.entities {
     uuid: string;
     datetime: Date;
     description: string;
-    participantRate: number;
+    activityType: ActivityType;
+    participantRate?: number;
     attendedUsers?: IUserParticipantActivity[];
+    availableUsers: number;
   }
 
   export interface IUser {
@@ -43,6 +59,7 @@ export namespace lag.entities {
     modifiedBy?: string;
     userUUID: string;
     activityUUID: string;
+    participantType: ParticipantType;
     toUser?: IUser;
     toActivity?: IActivity;
   }
@@ -68,20 +85,9 @@ export namespace lag.entities {
     flag: string;
     shipRank: ShipRank;
     picture: Buffer;
-    subModels: IShipSubModel[];
-  }
-
-  export interface IShipSubModel {
-    createdAt?: Date;
-    createdBy?: string;
-    modifiedAt?: Date;
-    modifiedBy?: string;
-    uuid: string;
     parentModelUUID: string;
-    name: string;
-    flag: string;
-    picture: Buffer;
-    shipRank: ShipRank;
+    subModels?: IShipModel[];
+    toParentModel?: IShipModel;
   }
 
   export enum Entity {
@@ -90,7 +96,6 @@ export namespace lag.entities {
     UserParticipantActivity = "lag.entities.UserParticipantActivity",
     UserOwnedShipModel = "lag.entities.UserOwnedShipModel",
     ShipModel = "lag.entities.ShipModel",
-    ShipSubModel = "lag.entities.ShipSubModel",
   }
 
   export enum SanitizedEntity {
@@ -99,7 +104,6 @@ export namespace lag.entities {
     UserParticipantActivity = "UserParticipantActivity",
     UserOwnedShipModel = "UserOwnedShipModel",
     ShipModel = "ShipModel",
-    ShipSubModel = "ShipSubModel",
   }
 }
 
