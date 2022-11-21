@@ -1,4 +1,3 @@
-// this file is only used for code completion in the IDE
 {
   "extends": "./tsconfig.build",
   "include": [
