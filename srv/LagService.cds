@@ -19,7 +19,13 @@ service LagService {
     createdAt,
   };
 
-  entity UserOwnedShipModelEntity      as projection on UserOwnedShipModel;
+  entity UserOwnedShipModelEntity      as projection on UserOwnedShipModel {
+    *,
+    toModel.name     as name,
+    toModel.shipRank as shipRank,
+    toModel.flag     as flag,
+    
+  };
 
   entity UserParticipantActivityEntity as projection on UserParticipantActivity {
     *,

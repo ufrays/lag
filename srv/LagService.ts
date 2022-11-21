@@ -1,6 +1,7 @@
 import { ApplicationService } from "@sap/cds";
 import { EEntityName } from "./utils/consts";
 import { DataGen } from "./utils/dataGen";
+import { lag } from "./utils/schemaGen";
 
 export class LagService extends ApplicationService {
   async init() {
@@ -26,10 +27,13 @@ export class LagService extends ApplicationService {
 
   private async dataGen(req: any): Promise<string> {
     const user = DataGen.dummyUserGen();
-    const shipModel = DataGen.dummyShipModelGen();
+    const shipModels = DataGen.dummyShipModelGen();
     const activity = DataGen.dummyActivityGen();
     const userAtt = DataGen.activityAddtendeesGen(user.uuid, activity.uuid);
-    const userShip = DataGen.dummyOwnedModelsGen(user.uuid, shipModel.uuid);
+    const userOwnShips:lag.entities.IUserOwnedShipModel[] = [];
+    shipModels.forEach((shipModel)=> { 
+      userOwnShips.push(DataGen.dummyOwnedModelsGen(user.uuid, shipModel.uuid));
+    });
     try {
       await this.tx(
         // @ts-ignore
@@ -38,10 +42,10 @@ export class LagService extends ApplicationService {
         async () => {
           console.log("start writting dummy data");
           await this.create(EEntityName.USER_ENTITY_NAME).entries(user);
-          await this.create(EEntityName.SHIP_MODEL_ENTITY_NAME).entries(shipModel);
+          await this.create(EEntityName.SHIP_MODEL_ENTITY_NAME).entries(shipModels);
           await this.create(EEntityName.ACTIVITY_ENTITY_NAME).entries(activity);
           await this.create(EEntityName.USER_PARTICIPANT_ENTITY_NAME).entries(userAtt);
-          await this.create(EEntityName.USER_OWNED_SHIP_ENTITY_NAME).entries(userShip);
+          await this.create(EEntityName.USER_OWNED_SHIP_ENTITY_NAME).entries(userOwnShips);
         }
       );
       return "done";

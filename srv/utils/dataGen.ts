@@ -16,18 +16,19 @@ export class DataGen {
     return user;
   }
 
-  public static dummyShipModelGen(): lag.entities.IShipModel {
+  public static dummyShipModelGen(): lag.entities.IShipModel[] {
     const modelUUID = v4();
-    const ShipModel: lag.entities.IShipModel = {
-      uuid: modelUUID,
-      name: "dummy model",
-      flag: "dummy",
-      picture: Buffer.from(""),
-      shipRank: lag.entities.ShipRank.T0,
-      parentModelUUID : ""
-      
-    };
+
     const subModels : lag.entities.IShipModel[] = [
+      {
+        uuid: modelUUID,
+        name: "dummy model",
+        flag: "dummy",
+        picture: Buffer.from(""),
+        shipRank: lag.entities.ShipRank.T0,
+        parentModelUUID : ""
+        
+      },
       {
         uuid: v4(),
         parentModelUUID: modelUUID,
@@ -45,7 +46,7 @@ export class DataGen {
         shipRank: lag.entities.ShipRank.T3
       }
     ];
-    return ShipModel;
+    return subModels;
   }
 
   public static dummyOwnedModelsGen(userUUID: string, modelUUID: string): lag.entities.IUserOwnedShipModel {

@@ -64,3 +64,21 @@ annotate service.UserParticipantActivityEntity with @(UI.LineItem : [
   },
 
 ]);
+
+annotate service.UserOwnedShipModelEntity with @(UI.LineItem : [
+  {
+    $Type : 'UI.DataField',
+    Value : name,
+    Label : '蓝图名称',
+  },
+  {
+    $Type : 'UI.DataField',
+    Value : shipRank,
+    Label : '评级'
+  },
+  {
+    $Type : 'UI.DataField',
+    Value : flag,
+    Label : '标签'
+  },
+]);

@@ -10,7 +10,8 @@
     xmlns:semantic="sap.f.semantic"
     controllerName="lag.lagui.controller.User"
 >
-    <VBox>
+    <VBox fitContainer="true">
+        <PullToRefresh id="ptr" refresh="=onPTRRefresh" />
         <smartForm:SmartForm id="smartFormColumn" app:defaultCheckBoxDisplayBehaviour="OnOff" app:defaultDropDownDisplayBehaviour="idAndDescription" editTogglable="true" title="人员信息 - {name}" app:w5g.dt.context="/UserEntity">
             <smartForm:layout>
                 <smartForm:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
@@ -33,32 +34,30 @@
                 </smartForm:GroupElement>
             </smartForm:Group>
         </smartForm:SmartForm>
-        <IconTabBar selectedKey="activityFilter" id="bar0">
+        <IconTabBar id="bar0" applyContentPadding="false" headerMode="Inline">
             <items>
                 <IconTabFilter id="activityFilter" text="活动" count="{count(activityUUID)}" icon="sap-icon://activity-items" app:w5g.dt.context="/UserParticipantActivityEntity">
                     <content>
                         <smartTable:SmartTable
-                            id="ActivityItemsSmartTable"
+                            id="stActivities"
                             entitySet="UserParticipantActivityEntity"
                             tableType="ResponsiveTable"
                             useVariantManagement="false"
                             useTablePersonalisation="false"
                             header="活动信息"
                             showRowCount="true"
-                            persistencyKey="SmartTableAnalytical_Explored"
+                            persistencyKey="activityPK"
                             enableAutoBinding="true"
-                            class="sapUiResponsiveContentPadding"
                             enableAutoColumnWidth="true"
                             editTogglable="false"
                             app:useSmartToggle="true"
                             editable="false"
                             showFullScreenButton="false"
                             showVariantManagement="false"
-                            enableCustomFilter="false"
                             showTablePersonalisation="false"
                             useInfoToolbar="Off"
                             app:w5g.dt.context="/UserEntity/participantActivies"
-                            beforeRebindTable="onBeforeRebindTable"
+                            beforeRebindTable="onBeforeRebindBlueprintsTable"
                             backgroundDesign="Solid"
                         >
                             <smartTable:layoutData>
@@ -68,8 +67,36 @@
                     </content>
                 </IconTabFilter>
 
-                <IconTabFilter text="蓝图" count="5" icon="sap-icon://radar-chart" iconColor="Positive" id="blueprints" />
+                <IconTabFilter text="蓝图" count="5" icon="sap-icon://radar-chart" iconColor="Positive" id="blueprints">
+                    <smartTable:SmartTable
+                        id="stBlueprints"
+                        entitySet="UserOwnedShipModelEntity"
+                        tableType="ResponsiveTable"
+                        useVariantManagement="false"
+                        useTablePersonalisation="false"
+                        header="蓝图信息"
+                        showRowCount="true"
+                        persistencyKey="blurprintPK"
+                        enableAutoBinding="true"
+                        enableAutoColumnWidth="true"
+                        editTogglable="false"
+                        app:useSmartToggle="true"
+                        editable="false"
+                        showFullScreenButton="false"
+                        showVariantManagement="false"
+                        showTablePersonalisation="false"
+                        useInfoToolbar="Off"
+                        beforeRebindTable="onBeforeRebindActivityTable"
+                        backgroundDesign="Solid"
+                        app:w5g.dt.context="/UserEntity/ownedShipModels"
+                    >
+                        <smartTable:layoutData>
+                            <FlexItemData growFactor="1" baseSize="0%" backgroundDesign="Solid" />
+                        </smartTable:layoutData>
+                    </smartTable:SmartTable>
+                </IconTabFilter>
             </items>
         </IconTabBar>
+        <items />
     </VBox>
 </mvc:View>

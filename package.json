@@ -6,9 +6,9 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^6.2.3",
+    "@sap/cds": "^6.3.1",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.13",
-    "cds-mysql": "^6",
+    "cds-mysql": "^6.3.1",
     "express": "^4",
     "sqlite3": "^5.1.2"
   },
@@ -86,13 +86,6 @@
                 "default"
               ]
             }
-          },
-          "credentials": {
-            "host": "139.196.90.54",
-            "user": "Dev",
-            "password": "Welcome1",
-            "database": "lag",
-            "port": 3306
           }
         },
         "mysql": {
@@ -105,17 +98,6 @@
     }
   },
   "sapux": [
-    "app/user-monitoring",
-    "app/user-monitoring",
-    "app/user-management",
-    "app/activity-managment",
-    "app/ship-management",
-    "app/user-ui",
-    "app/user-management",
-    "app/project1",
-    "app/project1",
-    "app/lag-ui",
-    "app/lagui",
-    "app/project1"
+    "app/lagui"
   ]
 }

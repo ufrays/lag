@@ -23,6 +23,7 @@ mta_archives/
 
 *.iml
 *.flattened-pom.xml
+default-env.json
 
 # IDEs
 # .vscode

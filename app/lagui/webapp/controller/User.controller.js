@@ -18,19 +18,33 @@ sap.ui.define([
       this.getView().setModel(this.userModel);
       
     },
-    onBeforeRebindTable : function(oEvent){
+
+    onPTRRefresh : function(oEvent){ 
+      this.userModel.refresh(true);
+    },
+    onBeforeRebindActivityTable : function(oEvent){
       var oBindingParams = oEvent.getParameter("bindingParams");
       oBindingParams.filters.push(new Filter("userUUID", FilterOperator.EQ, this.sUserUUID));
       // oBindingParams.parameters = {
       //   expand: 'ActivityEntity'
       // };
     },
+    onBeforeRebindBlueprintsTable : function(oEvent){
+      var oBindingParams = oEvent.getParameter("bindingParams");
+      oBindingParams.filters.push(new Filter("userUUID", FilterOperator.EQ, this.sUserUUID));
+      // oBindingParams.parameters = {
+      //   expand: 'toModel'
+      // };
+     
+    },
     loadData: function () {
       this.userModel.read(`/UserEntity(guid'${this.sUserUUID}')`, {
         success: (oData, response) => {
           if (oData) {
             this.getView().bindElement(`/UserEntity(guid'${this.sUserUUID}')`);
-            this.byId("ActivityItemsSmartTable").rebindTable(true);
+            this.byId("stActivities").rebindTable(true);
+            this.byId("stBlueprints").rebindTable(true);
+
           } 
         },
         error: (oError) => {

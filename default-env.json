@@ -8,8 +8,8 @@
           "mysql"
         ],
         "credentials": {
-          "host": "139.196.90.54",
-          "user": "Dev",
+          "host": "47.98.178.71",
+          "user": "dev",
           "password": "Welcome1",
           "database": "lag",
           "port": 3306
