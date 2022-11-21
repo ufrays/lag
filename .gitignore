@@ -2,7 +2,6 @@
 _out
 *.db
 connection.properties
-default-*.json
 gen/
 node_modules/
 target/
@@ -12,9 +11,6 @@ target/
 .gen/
 
 # MTA
-*_mta_build_tmp
-*.mtar
-mta_archives/
 
 # Other
 .DS_Store
@@ -23,6 +19,4 @@ mta_archives/
 
 *.iml
 *.flattened-pom.xml
-# IDEs
-# .vscode
-# .idea
+default-env.json

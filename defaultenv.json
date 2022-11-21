@@ -1,0 +1,20 @@
+{
+  "VCAP_SERVICES": {
+    "user-provided": [
+      {
+        "label": "user-provided",
+        "name": "remote-mysql-service",
+        "tags": [
+          "mysql"
+        ],
+        "credentials": {
+          "host": "47.98.178.71",
+          "user": "dev",
+          "password": "Welcome1",
+          "database": "lag",
+          "port": 3306
+        }
+      }
+    ]
+  }
+}
