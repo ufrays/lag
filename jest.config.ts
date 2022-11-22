@@ -7,12 +7,12 @@ module.exports = {
     ".(ts|tsx)": "ts-jest"
   },
   globalSetup: "./test/setup.ts",
-  setupFiles: ["./test/setupFile.ts"],
+  setupFiles: ["./test/setupTest.ts"],
   collectCoverageFrom: ["src/**/*.ts", "src/*.ts", "!**/node_modules/**"],
   coveragePathIgnorePatterns: ["node_modules/"],
   testEnvironment: "node",
   testRegex: "/test/.*\\.test\\.ts$",
   moduleFileExtensions: ["ts", "js", "json"],
   detectOpenHandles: true,
-  reporters: ["default", ["jest-summary-reporter", { failuresOnly: true }], "jest-sonar", "jest-junit"]
+  reporters: ["default"]
 };

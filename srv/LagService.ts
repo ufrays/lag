@@ -7,38 +7,24 @@ export class LagService extends ApplicationService {
   async init() {
     await super.init();
     this.on("getDummyData", this.dataGen.bind(this));
-    this.on("getUserOwnedShips", this.getUserOwnedShips.bind(this));
     // await this.dataGen(null);
-    this.before("CREATE", EEntityName.ACTIVITY_ENTITY_NAME, this.countAvaiableUsers.bind(this));
+    this.before("CREATE", EEntityName.ACTIVITY_ENTITY_NAME, this.countAvailableUsers.bind(this));
   }
 
-  private async getUserOwnedShips(req: Request): Promise<Set<lagSrv.IUserOwnedShips>> {
+  private async getUserOwnedShips(req): Promise<lagSrv.IUserOwnedShips[]> {
 
-    const userUUID: string = req["data"]?.userUUID;
+    const userUUID: string = req;
     if (!userUUID) {
       new Error("User UUID is missing when loading user owned ships");
     }
-    const userOwnedShips: Set<lagSrv.IUserOwnedShips> = new Set();
-
+    const userOwnedShips: lagSrv.IUserOwnedShips[] = [];
     // load raw data from DB.
-    const rawResults: lagSrv.IUserOwnedShipModelEntity[] = await this.read(EEntityName.USER_OWNED_SHIP_ENTITY_NAME).where({ userUUID: userUUID });
-    //  const subModels: lagSrv.IUserOwnedShipModelEntity[] = [];
-    // const parentModels =  rawResults.map((result) => {
-    //   if (result.parentModelUUID !== "") {
-    //     const ownedParentModel: lagSrv.IUserOwnedShips = {
-    //       name: result.name,
-    //       shipRank: result.shipRank,
-    //       flag: result.flag,
-    //       subModelNames: []
-    //     };
-    //     return [result.modelUUID, ownedParentModel];
-    //   }
-    // });
+    const rawResults: lagSrv.IUserOwnedShipModelEntity[] = await this.loadUserOwnedShipsData(userUUID);
 
     // get parent ship model.
     rawResults.forEach(ship => {
       if (ship.parentModelUUID === "") {
-        userOwnedShips.add({
+        userOwnedShips.push({
           modelUUID: ship.modelUUID,
           name: ship.name,
           shipRank: ship.shipRank,
@@ -54,25 +40,37 @@ export class LagService extends ApplicationService {
           if (ship.parentModelUUID === ownedModel.modelUUID) {
             ownedModel.subModelNames.push(ship.name);
           }
-        })
+        });
       }
     });
 
     return userOwnedShips;
 
   }
-  private async countAvaiableUsers(req: Request) {
-
+  /**
+   * Count the available user when adding activity.
+   * @param req 
+   */
+  private async countAvailableUsers(req: any) {
     try {
-      const activieUserUUIDs: [] = await this.read(EEntityName.USER_ENTITY_NAME).where({
+      const activeUserUUIDs: [] = await this.read(EEntityName.USER_ENTITY_NAME).where({
         isActive: true
       }).columns("uuid");
-      req["data"].availableUsers = activieUserUUIDs?.length;
-      const xx = req.body;
+      req["data"].availableUsers = activeUserUUIDs?.length;
+      const xx = req["body"];
     } catch (error) {
       console.error(error);
     }
 
+  }
+
+  /**
+   * Isolated functions for mock usability.
+   * @param userUUID user uuid from UI
+   * @returns 
+   */
+  private async loadUserOwnedShipsData(userUUID: string): Promise<lagSrv.IUserOwnedShipModelEntity[]> {
+    return await this.read(EEntityName.USER_OWNED_SHIP_ENTITY_NAME).where({ userUUID: userUUID });
   }
 
   private async dataGen(req: any): Promise<string> {
@@ -101,7 +99,7 @@ export class LagService extends ApplicationService {
       return "done";
     } catch (error) {
       console.error(error);
-      return "error"
+      return "error";
     }
 
   }
