@@ -34,7 +34,7 @@
                 </smartForm:GroupElement>
             </smartForm:Group>
         </smartForm:SmartForm>
-        <IconTabBar id="bar0" applyContentPadding="false" headerMode="Inline">
+        <IconTabBar id="bar0" applyContentPadding="true" headerMode="Inline">
             <items>
                 <IconTabFilter id="activityFilter" text="活动" count="{count(activityUUID)}" icon="sap-icon://activity-items" app:w5g.dt.context="/UserParticipantActivityEntity">
                     <content>
@@ -57,7 +57,7 @@
                             showTablePersonalisation="false"
                             useInfoToolbar="Off"
                             app:w5g.dt.context="/UserEntity/participantActivies"
-                            beforeRebindTable="onBeforeRebindBlueprintsTable"
+                            beforeRebindTable="onBeforeRebindActivityTable"
                             backgroundDesign="Solid"
                         >
                             <smartTable:layoutData>
@@ -86,7 +86,7 @@
                         showVariantManagement="false"
                         showTablePersonalisation="false"
                         useInfoToolbar="Off"
-                        beforeRebindTable="onBeforeRebindActivityTable"
+                        beforeRebindTable="onBeforeRebindBlueprintsTable"
                         backgroundDesign="Solid"
                         app:w5g.dt.context="/UserEntity/ownedShipModels"
                     >

@@ -9,6 +9,15 @@ using {
 
 
 service LagService {
+
+  type UserOwnedShips : {
+    modelUUID     : String;
+    name          : String;
+    shipRank      : ShipRank;
+    flag          : String;
+    subModelNames : array of String;
+  };
+
   entity UserEntity                    as projection on User {
     uuid,
     ![name],
@@ -21,10 +30,10 @@ service LagService {
 
   entity UserOwnedShipModelEntity      as projection on UserOwnedShipModel {
     *,
-    toModel.name     as name,
-    toModel.shipRank as shipRank,
-    toModel.flag     as flag,
-    
+    toModel.name            as name,
+    toModel.shipRank        as shipRank,
+    toModel.flag            as flag,
+    toModel.parentModelUUID as parentModelUUID
   };
 
   entity UserParticipantActivityEntity as projection on UserParticipantActivity {
@@ -37,5 +46,6 @@ service LagService {
 
   entity ActivityEntity                as projection on Activity;
   entity ShipModelEntity               as projection on ShipModel;
-  function getDummyData() returns String;
+  function getDummyData()                       returns String;
+  function getUserOwnedShips(userUUID : String) returns array of UserOwnedShips
 }

@@ -37,9 +37,10 @@
   "scripts": {
     "start": "CDS_ENV=development cds-ts run",
     "start:p": "CDS_ENV=production cds-ts run",
-    "build": "cds build && npm run defGen",
+    "build": "cds build && npm run defGen && npm run defSrvGen",
     "build:ts": "tsc -p tsconfig.build.json",
-    "defGen": "cds2types --cds ./db ./srv -o ./srv/utils/schemaGen.ts --prefix I -f",
+    "defGen": "cds2types --cds ./db  -o ./srv/utils/schemaGen.ts --prefix I -f",
+    "defSrvGen": "cds2types --cds ./srv/LagService.cds  -o ./srv/utils/srvSchemaGen.ts --prefix I -f",
     "watch-lagui": "cds watch --open lagui/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "eslintConfig": {

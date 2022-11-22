@@ -32,9 +32,10 @@ sap.ui.define([
     onBeforeRebindBlueprintsTable : function(oEvent){
       var oBindingParams = oEvent.getParameter("bindingParams");
       oBindingParams.filters.push(new Filter("userUUID", FilterOperator.EQ, this.sUserUUID));
-      // oBindingParams.parameters = {
-      //   expand: 'toModel'
-      // };
+      oBindingParams.parameters = {
+        expand: 'toModel'
+      };
+      oBindingParams.filters.push(new Filter("toModel.parentModelUUID", FilterOperator.NE, ""));
      
     },
     loadData: function () {

@@ -38,14 +38,16 @@
             persistencyKey="SmartTableAnalytical_Explored"
             enableAutoBinding="true"
             class="sapUiResponsiveContentPadding"
+            showTablePersonalisation="false"
+            useInfoToolbar="Off"
             enableAutoColumnWidth="true"
             editTogglable="false"
-            app:useSmartToggle="true"
+            app:useSmartToggle="false"
             editable="false"
             showFullScreenButton="true"
             showVariantManagement="false"
             app:w5g.dt.context="/UserEntity"
-            ignoredFields="{password}"
+            showDetailsButton="true"
         >
             <smartTable:layoutData>
                 <FlexItemData growFactor="1" baseSize="0%" />
